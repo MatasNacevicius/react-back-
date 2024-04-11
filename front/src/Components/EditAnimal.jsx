@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
-const CreateAnimal = ({ setCreate }) => {
+const EditAnimal = ({ setShow, showData, setEdit }) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [weight, setWeight] = useState("");
@@ -9,7 +10,7 @@ const CreateAnimal = ({ setCreate }) => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    setCreate({ name, type, weight, liveInZoo });
+    setEdit({ name, type, weight, liveInZoo, id: showData.id });
 
     console.log(name, type, weight, liveInZoo);
 
@@ -17,10 +18,19 @@ const CreateAnimal = ({ setCreate }) => {
     setType("");
     setWeight("");
     setLivesInZoo(0);
+    setShow(0);
   };
+
+  useEffect(() => {
+    setName(showData.name);
+    setType(showData.type);
+    setWeight(showData.weight);
+    setLivesInZoo(showData.liveInZoo);
+  }, [showData]);
+
   return (
     <div>
-      <h1>Create animal record</h1>
+      <h1>Edit animal record</h1>
 
       <form onSubmit={handleSubmitForm}>
         <label>Animal name</label>
@@ -41,17 +51,16 @@ const CreateAnimal = ({ setCreate }) => {
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
         />
-        <label>Does animal live in zoo</label>
         <input
           type="checkbox"
           checked={liveInZoo}
           onChange={() => setLivesInZoo((doLive) => (doLive ? 0 : 1))}
         />
-
-        <button type="sunmit">create</button>
+        <label>Does animal live in zoo</label>
+        <button>Update</button>
       </form>
     </div>
   );
 };
 
-export default CreateAnimal;
+export default EditAnimal;

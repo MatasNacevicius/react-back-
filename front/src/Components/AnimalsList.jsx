@@ -1,15 +1,16 @@
 import React from "react";
 import Animal from "./Animal";
 
-const AnimalsList = ({ animalList, handleDelete, setshowID }) => {
+const AnimalsList = ({ animalList, handleDelete, setShow }) => {
+  console.log(animalList);
   return (
     <div>
-      {animalList.map((animal) => (
+      {animalList?.map((animal) => (
         <Animal
           key={animal.id}
           animal={animal}
           handleDelete={handleDelete}
-          setshowID={setshowID}
+          setShow={setShow}
         />
       ))}
     </div>

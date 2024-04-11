@@ -1,7 +1,7 @@
 import React from "react";
 
-const Animal = ({ animal, handleDelete, setShowID }) => {
-  const { id, name, type, weight, livesInZoo } = animal;
+const Animal = ({ animal, handleDelete, setShow }) => {
+  const { id, name, type, weight, liveInZoo } = animal;
 
   return (
     <div>
@@ -10,9 +10,9 @@ const Animal = ({ animal, handleDelete, setShowID }) => {
         <span>{name}</span>
         <span>{type}</span>
         <span>{weight}</span>
-        <span>{livesInZoo}</span>
+        <span>{liveInZoo}</span>
         <div>
-          <button onClick={() => setShowID(id)}>Edit</button>
+          <button onClick={() => setShow(id)}>Edit</button>
           <button onClick={() => handleDelete(id)}>Delete</button>
         </div>
       </li>

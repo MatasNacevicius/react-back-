@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
-const port = 3000;
+const port = 3003;
 
 app.use(cors());
 
@@ -14,16 +14,16 @@ const connectionToDB = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "kab212_2_react_zoo",
+  database: "react_zoo",
 });
 
 //POST
 app.post("/zoo", (req, res) => {
-  const sqlQuery = `INSERT INTO zoo_museum(name, type, weight, live_in_zoo) VALUES(?, ?, ?, ?)`;
+  const sqlQuery = `INSERT INTO zoo_museum(name, type, weight, liveInZoo) VALUES(?, ?, ?, ?)`;
 
   connectionToDB.query(
     sqlQuery,
-    [req.body.name, req.body.type, req.body.weight, req.body.live_in_zoo],
+    [req.body.name, req.body.type, req.body.weight, req.body.liveInZoo],
     function (err, result) {
       if (err) throw err;
       res.json({ message: "ok" });
@@ -33,11 +33,11 @@ app.post("/zoo", (req, res) => {
 
 //GET
 app.get("/zoo", (req, res) => {
-  const sqlQuery = `SELECT id, name, type, weight, live_in_zoo FROM zoo_museum`;
+  const sqlQuery = `SELECT id, name, type, weight, liveInZoo FROM zoo_museum`;
 
   connectionToDB.query(sqlQuery, function (err, result) {
     if (err) throw err;
-    res.json({ message: "ok" });
+    res.json(result);
   });
 });
 
@@ -51,7 +51,7 @@ app.delete("/zoo/:id", (req, res) => {
   });
 });
 app.put("/zoo/:id", (req, res) => {
-  const sqlQuery = `UPDATE zoo_museum SET name=?, type=?, weight=?, live_in_zoo=? WHERE id=?`;
+  const sqlQuery = `UPDATE zoo_museum SET name=?, type=?, weight=?, liveInZoo=? WHERE id=?`;
 
   connectionToDB.query(
     sqlQuery,
@@ -59,7 +59,7 @@ app.put("/zoo/:id", (req, res) => {
       req.body.name,
       req.body.type,
       req.body.weight,
-      req.body.live_in_zoo,
+      req.body.liveInZoo,
       req.params.id,
     ],
     function (err, result) {
